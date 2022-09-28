@@ -15,8 +15,9 @@ export const NftDisplay = (props) => {
     if (!active) {
         return null;
     }
-    const imageUrl: string = props.tokenInfo.previewImageMedium;
-    const colorMap = useLoader(TextureLoader, imageUrl)
+    const imageUrl: string | null = props.tokenInfo.previewImageMedium;
+    const colorMap = imageUrl ? useLoader(TextureLoader, imageUrl) : null;
+    const color = imageUrl ? null : 'hotpink';
     return (
         <>
             <mesh
@@ -28,7 +29,7 @@ export const NftDisplay = (props) => {
                 scale={hovered ? 1.1 : 1}
             >
                 <boxBufferGeometry args={[0.1, 2, 1]} />
-                <meshPhysicalMaterial map={colorMap} />
+                <meshPhysicalMaterial map={colorMap} color={color} />
             </mesh>
         </>
     )
