@@ -31,7 +31,9 @@ Page.r3f = (props) => {
   const nftArray = tokenResults.data ? tokenResults.data : [];
   return (
     <>
-      <NftDisplay tokenInfo={nftArray[0]} />
+      <NftDisplay tokenInfo={nftArray[0]} initialPos={[2, 0, 0]} />
+      <NftDisplay tokenInfo={nftArray[0]} initialPos={[0, 0, 0]} />
+      <NftDisplay tokenInfo={nftArray[0]} initialPos={[-2, 0, 0]} />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
     </>
