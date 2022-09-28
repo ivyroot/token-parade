@@ -17,10 +17,6 @@ export const NftDisplay = (props) => {
     }
     const imageUrl: string = props.tokenInfo.previewImageMedium;
     const colorMap = useLoader(TextureLoader, imageUrl)
-
-
-    console.log(`RENDERING NFT DISPLAY ${imageUrl}`);
-
     return (
         <>
             <mesh
