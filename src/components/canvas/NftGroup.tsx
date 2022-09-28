@@ -28,7 +28,7 @@ export const NftGroup = (props) => {
     const tokenInfoArray = tokenResults.data.nfts;
     const nftDisplayArray = tokenInfoArray.map((tokenInfo, index) => {
         const column = index % 3;
-        const columnOffset = column * 3.5;
+        const columnOffset = 2.25 + column * 3.5;
         const row = Math.floor(index / 3);
         const rowOffset = row * -4;
         return <NftDisplay key={tokenInfo.id} tokenInfo={tokenInfo} initialPos={[columnOffset, 0, rowOffset]} />
