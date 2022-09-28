@@ -28,7 +28,7 @@ export const NftDisplay = (props) => {
                 onPointerOut={() => setHover(false)}
                 scale={hovered ? 1.1 : 1}
             >
-                <boxBufferGeometry args={[0.1, 2, 1]} />
+                <boxGeometry args={[0.1, 2, 1]} />
                 <meshPhysicalMaterial map={colorMap} color={color} />
             </mesh>
         </>

@@ -9,7 +9,8 @@ export const NftGroup = (props) => {
     const groupMesh = useRef(null);
     const initialPos = props.initialPos ?  props.initialPos : [0, 0, 0]
     const [groupPosition, setGroupPosition] = useState(initialPos)
-    const tokenResults = UseAddressTokens("chd.eth");
+    // NB: need to turn ENS into address in order to check owner history in response
+    const tokenResults = UseAddressTokens("0x50F27CdB650879A41fb07038bF2B818845c20e17");
     if (!tokenResults) {
         return null;
     }

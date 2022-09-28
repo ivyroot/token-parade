@@ -47,7 +47,6 @@ const callSimpleHashAPI = async (url: string) => {
             })
         });
     } else {
-        console.log(`CALLING SIMPLE HASH API: ${url}`)
         return fetch(url,
                         {
                             headers: {
@@ -82,7 +81,7 @@ export const UseAddressTokens = (address: string): NftTokenResponse => {
 
     const tokens = fullNfts.map((token: any) => {
        return parseSimpleHashInfo(token, address);
-    })
+    }).sort((a, b) => b.purchaseTimestamp - a.purchaseTimestamp )
 
     const result = {
         nfts: tokens,
