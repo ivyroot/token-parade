@@ -16,6 +16,7 @@ import { NftGroup } from '@/components/canvas/NftGroup'
 // })
 
 
+
 // dom components goes here
 const Page = (props) => {
   return (
@@ -28,10 +29,9 @@ const Page = (props) => {
 // canvas components goes here
 // It will receive same props as Page component (from getStaticProps, etc.)
 Page.r3f = (props) => {
-  const tokenResults = UseAddressTokens("chd.eth");
   return (
     <>
-      <NftGroup tokenResponse={tokenResults} initialPos={[0, 0, 0]} />
+      <NftGroup initialPos={[0, 0, 0]} />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
     </>
@@ -43,7 +43,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Index',
+      title: 'Project Title',
     },
   }
 }

@@ -3,6 +3,11 @@ import { OrbitControls, Preload } from '@react-three/drei'
 import useStore from '@/helpers/store'
 import { useEffect, useRef } from 'react'
 
+
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 const LControl = () => {
   const dom = useStore((state) => state.dom)
   const control = useRef(null)
@@ -35,7 +40,9 @@ const LCanvas = ({ children }) => {
     >
       <LControl />
       <Preload all />
-      {children}
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
     </Canvas>
   )
 }

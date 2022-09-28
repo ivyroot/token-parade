@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 
 export interface NftTokenInfo {
     id: string;
@@ -20,25 +21,48 @@ export interface NftTokenResponse {
 }
 
 export const UseAddressTokens = (address: string): NftTokenResponse => {
-    const demoToken: NftTokenInfo = {
-        "id": "iwefuhwiefuhiwefu:2",
-        "name": "Demo Token 2",
-        "collectionName": "Demo Collection",
-        "previewImageMedium": "https://lh3.googleusercontent.com/oJiJI0fdxwHMw-JEpe-hr7sV75REOnxJ92UWhnk9r8xMQLa_eJY8YfHacL_HKcZiqgpDdahc2dErZ0HPJrSZQyl9lheFJhAsVQ",
-        "purchaseDate": "2021-09-10T00:00:00.000Z",
-        "purchaseTimestamp": 1631232000000
-    };
-    const demoToken2: NftTokenInfo = {
-        "id": "iwefuhwiefuhiwefu:34",
-        "name": "Demo Token 34",
-        "collectionName": "Demo Collection",
-        "previewImageMedium": "https://lh3.googleusercontent.com/oJiJI0fdxwHMw-JEpe-hr7sV75REOnxJ92UWhnk9r8xMQLa_eJY8YfHacL_HKcZiqgpDdahc2dErZ0HPJrSZQyl9lheFJhAsVQ",
-        "purchaseDate": "2021-09-01T00:00:00.000Z",
-        "purchaseTimestamp": 1630454400
-    };
-    return {
-        status: ResponseStatus['Success'],
-        data: [demoToken, demoToken2]
-    };
+    const fetchTokens = () =>
+        fetch(
+        `https://api.simplehash.com/api/v0/nfts/owners?chains=ethereum&wallet_addresses=${address}`,
+        {
+            headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": process.env.NEXT_PUBLIC_ANALYTICS_ID,
+            },
+        }
+        ).then((res) => res.json());
+
+    const queryKey = `tokens.${address}`;
+    const { isLoading, isError, data, error } = useQuery([queryKey], fetchTokens);
+
+    if (isLoading) {
+        return { status: "progress", data: {} };
+    }
+
+    if (isError) {
+        return { status: "error", error: error, data: {} };
+    }
+
+    const tokens = data.nfts.map((token: any) => {
+        const ownerHistory = token.owners.find(t => t.owner_address == address)
+        const purchaseDate = ownerHistory ? ownerHistory.first_acquired_date : '2022-09-27T00:00:00.000Z'
+        const purchaseTimestamp = Date.parse(purchaseDate)
+        return {
+            id: token.token_id,
+            name: token.name,
+            collectionName: token.collection.name,
+            previewImageMedium: token.previews.image_medium_url,
+            purchaseDate: purchaseDate,
+            purchaseTimestamp: purchaseTimestamp,
+        };
+    })
+
+    const result = {
+        nfts: tokens,
+        more: false
+    }
+
+    return { status: "success", data: result };
+
 }
 

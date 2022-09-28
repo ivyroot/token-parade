@@ -8,15 +8,10 @@ export default function Instructions() {
     >
       <div className='tracking-wider'>
 
-        Step 2 - <span className='text-green-200'>update:</span>
-        <span className='text-red-200'>@/components/canvas/Shader/Shader</span>
+        Enter Address: &nbsp;
+        <span className='text-red-200'>chd.eth</span>
         <br />
-        Step 3 - <span className='text-green-200'>delete:</span>
-        <span className='text-red-200'> @/pages/box </span>
-        <br />
-        Step 4 - <span className='text-green-200'>update header:</span>
-        <span className='text-red-200'> @/config </span>
-      </div>
+        <span className='text-green-200'>Load</span>      </div>
     </div>
   )
 }
