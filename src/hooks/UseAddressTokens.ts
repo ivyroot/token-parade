@@ -1,5 +1,8 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { resolveSoa } from 'dns';
+import { UseParadeState  } from '@/hooks/UseParadeState'
+import { useState, useEffect } from 'react';
+
 
 export interface NftTokenInfo {
     id: string;
@@ -57,11 +60,13 @@ const callSimpleHashAPI = async (url: string) => {
                     }
 }
 
-export const UseAddressTokens = (address: string): NftTokenResponse => {
-    const fetchTokens = (url: string) => callSimpleHashAPI(url).then((res) => res.json());
+export const UseAddressTokens = (address: string | null): NftTokenResponse => {
+    const fetchTokens = (url: string | null) => callSimpleHashAPI(url).then((res) => res.json());
+    const setIsLoading = UseParadeState((state) => state.setIsLoading)
+    const setActive = UseParadeState((state) => state.setActive)
 
-    const queryKey1 = `tokensPage1${address}`;
-    const urlStart = `https://api.simplehash.com/api/v0/nfts/owners?chains=ethereum&wallet_addresses=${address}`
+    const queryKey1 = address ? `tokensPage1${address}` : 'tokensPageBlank';
+    const urlStart = address ? `https://api.simplehash.com/api/v0/nfts/owners?chains=ethereum&wallet_addresses=${address}` : null;
     const { isLoading, isError, data, error } = useQuery([queryKey1], () => fetchTokens(urlStart));
 
     const query2Active = (data && data.next) ? true : false
@@ -77,18 +82,25 @@ export const UseAddressTokens = (address: string): NftTokenResponse => {
         return { status: "error", error: error, data: {} };
     }
 
+    if (data.next && isLoading2) {
+        return { status: "progress", data: {} };
+    }
+
     const fullNfts = [ ...data.nfts, ...(dataPageTwo ? dataPageTwo.nfts : []) ]
 
     const tokens = fullNfts.map((token: any) => {
        return parseSimpleHashInfo(token, address);
     }).sort((a, b) => b.purchaseTimestamp - a.purchaseTimestamp )
 
+    if (!data.next || dataPageTwo) {
+        setIsLoading(false)
+        setActive(true)
+    }
+
     const result = {
         nfts: tokens,
         more: false
     }
-
     return { status: "success", data: result };
-
 }
 

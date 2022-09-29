@@ -1,12 +1,14 @@
-import { UseParadeState  } from '@/hooks/useParadeState'
+import { UseParadeState  } from '@/hooks/UseParadeState'
 import { useState, useEffect, useRef } from 'react'
 
 export const AddressInput = () => {
   const addressInput = UseParadeState((state) => state.addressInput)
   const setAddressInput = UseParadeState((state) => state.setAddressInput)
   const setAddressValue = UseParadeState((state) => state.setAddressValue)
+  const setIsLoading = UseParadeState((state) => state.setIsLoading)
   const startParade = () => {
     setAddressValue(addressInput)
+    setIsLoading(true)
   }
   return (
     <div
@@ -17,7 +19,7 @@ export const AddressInput = () => {
     >
       <div className='tracking-wider'>
         Enter Address: &nbsp;
-        <input type="text" className='text-slate-800' value={addressInput} onChange={(e) => {setAddressInput(e.target.value)}} />
+        <input type="text" className='mx-8 text-slate-800 w-96' placeholder='0x123abc456...' value={addressInput} onChange={(e) => {setAddressInput(e.target.value)}} />
         <button onClick={startParade}>Go!</button>
       </div>
     </div>

@@ -6,7 +6,6 @@ import { UseAddressTokens, NftTokenInfo, ResponseStatus, NftTokenResponse } from
 
 import { NftDisplay } from '@/components/canvas/NftDisplay'
 import { NftGroup } from '@/components/canvas/NftGroup'
-import { UseParadeState  } from '@/hooks/useParadeState'
 import { ParadeInfo } from '@/components/dom/ParadeInfo'
 import { AddressInput } from '@/components/dom/AddressInput'
 
@@ -22,7 +21,6 @@ import { AddressInput } from '@/components/dom/AddressInput'
 
 // dom components goes here
 const Page = (props) => {
-  const paradeActive = UseParadeState((state) => state.active)
   return (
     <>
       <ParadeInfo />
