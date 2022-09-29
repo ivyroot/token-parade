@@ -6,6 +6,10 @@ import { UseAddressTokens, NftTokenInfo, ResponseStatus, NftTokenResponse } from
 
 import { NftDisplay } from '@/components/canvas/NftDisplay'
 import { NftGroup } from '@/components/canvas/NftGroup'
+import { UseParadeState  } from '@/hooks/useParadeState'
+import { ParadeInfo } from '@/components/dom/ParadeInfo'
+import { AddressInput } from '@/components/dom/AddressInput'
+
 
 // Dynamic import is used to prevent a payload when the website start that will include threejs r3f etc..
 // WARNING ! errors might get obfuscated by using dynamic import.
@@ -16,12 +20,13 @@ import { NftGroup } from '@/components/canvas/NftGroup'
 // })
 
 
-
 // dom components goes here
 const Page = (props) => {
+  const paradeActive = UseParadeState((state) => state.active)
   return (
     <>
-      <Instructions />
+      <ParadeInfo />
+      <AddressInput />
     </>
   )
 }

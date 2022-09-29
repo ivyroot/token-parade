@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { NftDisplay } from '@/components/canvas/NftDisplay'
 import { useFrame } from '@react-three/fiber'
+import { UseParadeState  } from '@/hooks/useParadeState'
 
 
 import { UseAddressTokens, NftTokenInfo, ResponseStatus, NftTokenResponse } from '@/hooks/UseAddressTokens'
@@ -10,9 +11,10 @@ export const NftGroup = (props) => {
     const groupMesh = useRef(null);
     const initialPos = props.initialPos ?  props.initialPos : [0, 0, 0]
     const [groupPosition, setGroupPosition] = useState(initialPos)
+    const paradeActive = UseParadeState((state) => state.active)
 
     useFrame((state, delta) => {
-        if (groupMesh.current) {
+        if (paradeActive && groupMesh.current) {
             groupMesh.current.position.z = groupMesh.current.position.z += 0.01
         }
     })
