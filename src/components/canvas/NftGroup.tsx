@@ -10,7 +10,13 @@ import { UseAddressTokens, NftTokenInfo, ResponseStatus, NftTokenResponse } from
 export const NftGroup = (props) => {
     const groupMesh = useRef(null);
     const initialPos = props.initialPos ?  props.initialPos : [0, 0, 0]
-    const [groupPosition, setGroupPosition] = useState(initialPos)
+    const [startTime, setstartTime] = useState(Date.now());
+    if (props.startedAt && props.startedAt != startTime) {
+        if (groupMesh.current) {
+            groupMesh.current.position.z = 0;
+        }
+        setstartTime(props.startedAt);
+    }
 
     useFrame((state, delta) => {
         if (groupMesh.current) {
@@ -38,7 +44,7 @@ export const NftGroup = (props) => {
     })
     return (
         <>
-            <group ref={groupMesh} position={groupPosition}>
+            <group ref={groupMesh} position={initialPos}>
                 {nftDisplayArray}
             </group>
         </>        

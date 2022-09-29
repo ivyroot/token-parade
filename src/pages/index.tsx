@@ -24,7 +24,7 @@ import { AddressInput } from '@/components/dom/AddressInput'
 const Page = (props) => {
   return (
     <>
-      <ParadeInfo focusedNft={props.focusedNft} />
+      <ParadeInfo focusedNft={props.focusedNft} onRestart={props.onRestart} />
       <AddressInput />
     </>
   )
@@ -35,7 +35,7 @@ const Page = (props) => {
 Page.r3f = (props) => {
   return (
     <>
-      <NftGroup initialPos={[0, 0, 0]} onFocus={props.onFocus} />
+      <NftGroup initialPos={[0, 0, 0]} onFocus={props.onFocus} startedAt={props.startedAt} />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
     </>

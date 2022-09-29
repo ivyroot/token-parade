@@ -20,7 +20,11 @@ function App({ Component, pageProps = { title: 'index' } }) {
   const onFocus = (nftInfo) => {
     setFocusedNft(nftInfo)
   }
-  const fullProps = { ...pageProps, onFocus, focusedNft }
+  const [startedAt, setStartedAt] = useState(Date.now())
+  const onRestart = () => {
+    setStartedAt(Date.now())
+  }
+  const fullProps = { ...pageProps, onFocus, focusedNft, startedAt, onRestart }
   return (
     <>
       <Header title={pageProps.title} />
