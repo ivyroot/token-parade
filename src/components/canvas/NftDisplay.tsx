@@ -12,9 +12,6 @@ export const NftDisplay = (props) => {
     const initialPos : Vector3 = props.initialPos ?  props.initialPos : [0, 0, 0]
     const [position, setPosition] = useState(initialPos)
     const [rotation, setRotation] = useState([0, 0, 0])
-    if (!active) {
-        return null;
-    }
     const setFocus = () => {
         setHover(true)
         if (props.onFocus) {
@@ -26,8 +23,28 @@ export const NftDisplay = (props) => {
         window.open(osUrl, '_blank');
     }
     const imageUrl: string | null = props.tokenInfo.previewImageMedium;
-    const colorMap = imageUrl ? useLoader(TextureLoader, imageUrl) : null;
-    const color = imageUrl ? null : 'hotpink';
+    const colorMap = useLoader(TextureLoader, imageUrl);
+    if (!active) {
+        return null;
+    }
+    if (!imageUrl) {
+        return (
+                <>
+                    <mesh
+                        ref={mesh}
+                        position={position}
+                        rotation={[0, Math.PI / 2, 0]}
+                        onPointerOver={() => setFocus()}
+                        onPointerOut={() => setHover(false)}
+                        onClick={handleClicked}
+                        scale={hovered ? 1.1 : 1}
+                    >
+                        <boxGeometry args={[0.1, 2, 2]} />
+                        <meshPhysicalMaterial color='hotpink' />
+                    </mesh>
+                </>
+        )
+    }
     return (
         <>
             <mesh
@@ -40,7 +57,7 @@ export const NftDisplay = (props) => {
                 scale={hovered ? 1.1 : 1}
             >
                 <boxGeometry args={[0.1, 2, 2]} />
-                <meshPhysicalMaterial map={colorMap} color={color} />
+                <meshPhysicalMaterial map={colorMap} />
             </mesh>
         </>
     )
