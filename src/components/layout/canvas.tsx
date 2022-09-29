@@ -14,6 +14,7 @@ const LControl = () => {
 
   useEffect(() => {
     if (control.current) {
+      // @ts-ignore
       const domElement = dom.current
       const originalTouchAction = domElement.style['touch-action'] 
       domElement.style['touch-action'] = 'none'
@@ -31,11 +32,13 @@ const LCanvas = ({ children }) => {
 
   return (
     <Canvas
+      // @ts-ignore
       mode='concurrent'
       style={{
         position: 'absolute',
         top: 0,
       }}
+      // @ts-ignore
       onCreated={(state) => state.events.connect(dom.current)}
     >
       <LControl />

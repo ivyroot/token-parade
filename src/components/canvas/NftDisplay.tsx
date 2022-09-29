@@ -1,5 +1,5 @@
 // ThreeJS component which displays image on a box using a texture
-import { NftTokenInfo, ResponseStatus, NftTokenResponse } from '@/hooks/UseAddressTokens'
+import { NftTokenInfo, NftTokenResponse } from '@/hooks/UseAddressTokens'
 
 import React, { useRef, useEffect, useState } from 'react'
 import { useLoader } from '@react-three/fiber'
@@ -8,7 +8,6 @@ import { TextureLoader, Vector3 } from 'three'
 export const NftDisplay = (props) => {
     const mesh = useRef(null)
     const [hovered, setHover] = useState(false)
-    const [active, setActive] = useState(true)
     const initialPos : Vector3 = props.initialPos ?  props.initialPos : [0, 0, 0]
     const [position, setPosition] = useState(initialPos)
     const [rotation, setRotation] = useState([0, 0, 0])
@@ -24,9 +23,6 @@ export const NftDisplay = (props) => {
     }
     const imageUrl: string | null = props.tokenInfo.previewImageMedium;
     const colorMap = useLoader(TextureLoader, imageUrl);
-    if (!active) {
-        return null;
-    }
     if (!imageUrl) {
         return (
                 <>

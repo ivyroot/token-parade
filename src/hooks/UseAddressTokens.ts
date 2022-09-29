@@ -16,15 +16,9 @@ export interface NftTokenInfo {
     purchaseTimestamp: number;
 }
 
-export enum ResponseStatus {
-    Success = 'success',
-    Error = 'error',
-    Progress = 'progress'
-}
-
 export interface NftTokenResponse {
-    status: ResponseStatus;
-    data: NftTokenInfo[] | null;
+    status: string;
+    nfts: NftTokenInfo[] | null;
 }
 
 const parseSimpleHashInfo = (token: any, address: string): NftTokenInfo => {
@@ -73,9 +67,9 @@ const callSimpleHashAPI = async (url: string) => {
 }
 
 export const UseAddressTokens = (address: string | null): NftTokenResponse => {
+    // @ts-ignore
     const fetchTokens = (url: string | null) => callSimpleHashAPI(url).then((res) => res.json());
     const setIsLoading = UseParadeState((state) => state.setIsLoading)
-    const setActive = UseParadeState((state) => state.setActive)
 
     const queryKey1 = address ? `tokensPage1${address}` : 'tokensPageBlank';
     const urlStart = address ? `https://api.simplehash.com/api/v0/nfts/owners?chains=ethereum&wallet_addresses=${address}` : null;
@@ -87,15 +81,15 @@ export const UseAddressTokens = (address: string | null): NftTokenResponse => {
     const { isLoading: isLoading2, isError: isError2, data: dataPageTwo, error: error2 } = useQuery([query2Key, query2Active], () => fetchTokens(page2Url));
 
     if (isLoading) {
-        return { status: "progress", data: {} };
+        return { status: "progress", nfts: null };
     }
 
     if (isError) {
-        return { status: "error", error: error, data: {} };
+        return { status: "error", nfts: null };
     }
 
     if (data.next && isLoading2) {
-        return { status: "progress", data: {} };
+        return { status: "progress", nfts: null };
     }
 
     const fullNfts = [ ...data.nfts, ...(dataPageTwo ? dataPageTwo.nfts : []) ]
@@ -106,13 +100,8 @@ export const UseAddressTokens = (address: string | null): NftTokenResponse => {
 
     if (!data.next || dataPageTwo) {
         setIsLoading(false)
-        setActive(true)
     }
 
-    const result = {
-        nfts: tokens,
-        more: false
-    }
-    return { status: "success", data: result };
+    return { status: "success", nfts: tokens };
 }
 

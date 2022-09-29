@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 // Step 5 - delete Instructions components
 import Instructions from '@/components/dom/Instructions'
 import Shader from '@/components/canvas/Shader/Shader'
-import { UseAddressTokens, NftTokenInfo, ResponseStatus, NftTokenResponse } from '@/hooks/UseAddressTokens'
+import { UseAddressTokens, NftTokenInfo, NftTokenResponse } from '@/hooks/UseAddressTokens'
 
 import { NftDisplay } from '@/components/canvas/NftDisplay'
 import { NftGroup } from '@/components/canvas/NftGroup'

@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { NftDisplay } from '@/components/canvas/NftDisplay'
 import { useFrame } from '@react-three/fiber'
-import { UseParadeState  } from '@/hooks/UseParadeState'
+import { UseParadeState, ParadeState  } from '@/hooks/UseParadeState'
 
 
-import { UseAddressTokens, NftTokenInfo, ResponseStatus, NftTokenResponse } from '@/hooks/UseAddressTokens'
+import { UseAddressTokens, NftTokenInfo, NftTokenResponse } from '@/hooks/UseAddressTokens'
 
 
 export const NftGroup = (props) => {
@@ -34,8 +34,7 @@ export const NftGroup = (props) => {
         return null;
     }
 
-    const tokenInfoArray = tokenResults.data.nfts;
-    const nftDisplayArray = tokenInfoArray.map((tokenInfo, index) => {
+    const nftDisplayArray = tokenResults.nfts.map((tokenInfo, index) => {
         const column = index % 3;
         const columnOffset = 2.25 + column * 3.5;
         const row = Math.floor(index / 3);

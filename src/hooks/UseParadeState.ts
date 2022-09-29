@@ -1,9 +1,15 @@
 import create from 'zustand'
 
+export interface ParadeState {
+    addressInput: string
+    setAddressInput: (val: string) => void
+    addressValue: string
+    setAddressValue: (val: string) => void
+    isLoading: boolean
+    setIsLoading: (val: boolean) => void
+}
 
-export const UseParadeState = create((set) => ({
-    active: false,
-    setActive: (val: boolean) => set((state) => ({ active: val })),
+export const UseParadeState = create<ParadeState>((set) => ({
     addressInput: '',
     setAddressInput: (val: string) => set((state) => ({ addressInput: val })),
     addressValue: null,
