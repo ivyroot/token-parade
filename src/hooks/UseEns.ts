@@ -1,21 +1,21 @@
 // by @frolic imported from web3 scaffold: https://github.com/holic/web3-scaffold
 
 import { useEffect } from "react";
-import createStore from "zustand";
+import create from "zustand";
 import { persist } from "zustand/middleware";
 
 import { CachedFetch } from "@/hooks/CachedFetch";
 
 type State = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   resolvedAddresses: Partial<Record<string, any>>;
 };
 
-export const useStore = createStore<State>(
-  persist(() => ({ resolvedAddresses: {} }), { name: "resolved-ens" })
+export const useStore = create(
+    persist(() => ({ resolvedAddresses: {} }), { name: "resolved-ens" })
 );
 
-export const UseENS = (address: string) => {
+export const UseEns = (address: string) => {
   const addressLowercase = address ? address.toLowerCase() : null;
   const resolvedState = useStore(
     (state) => state.resolvedAddresses[addressLowercase]

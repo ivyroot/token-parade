@@ -67,7 +67,6 @@ const callSimpleHashAPI = async (url: string) => {
 }
 
 export const UseAddressTokens = (address: string | null): NftTokenResponse => {
-    console.log(`UseAddressTokens: ${address} ${address ? 'present' : 'not present'}`)
     // @ts-ignore
     const fetchTokens = (url: string | null) => callSimpleHashAPI(url).then((res) => res.json());
     const setIsLoading = UseParadeState((state) => state.setIsLoading)

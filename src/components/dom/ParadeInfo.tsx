@@ -1,12 +1,12 @@
 import { UseParadeState  } from '@/hooks/UseParadeState'
 import { TokenInfo } from '@/components/dom/TokenInfo'
-import { UseENS } from '@/hooks/UseENS'
+import { UseEns } from '@/hooks/UseEns'
 
 export const ParadeInfo = (params) => {
     const address = UseParadeState((state) => state.addressValue)
     const isLoading = UseParadeState((state) => state.isLoading)
     const loadingMsg = isLoading ? 'Loading...' : ''
-    const ensLookup = UseENS(address)
+    const ensLookup = UseEns(address)
     const paradeOwnerName = (ensLookup && ensLookup.displayName) ? ensLookup.displayName : null
     const handleRestart = () => {
         if (params.onRestart) {
