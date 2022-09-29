@@ -21,6 +21,10 @@ export const NftDisplay = (props) => {
             props.onFocus(props.tokenInfo);
         }
     }
+    const osUrl = `https://opensea.io/assets/${props.tokenInfo.chain}/${props.tokenInfo.contractAddress}/${props.tokenInfo.tokenId}`;
+    const handleClicked = () => {
+        window.open(osUrl, '_blank');
+    }
     const imageUrl: string | null = props.tokenInfo.previewImageMedium;
     const colorMap = imageUrl ? useLoader(TextureLoader, imageUrl) : null;
     const color = imageUrl ? null : 'hotpink';
@@ -32,6 +36,7 @@ export const NftDisplay = (props) => {
                 rotation={[0, Math.PI / 2, 0]}
                 onPointerOver={() => setFocus()}
                 onPointerOut={() => setHover(false)}
+                onClick={handleClicked}
                 scale={hovered ? 1.1 : 1}
             >
                 <boxGeometry args={[0.1, 2, 2]} />
