@@ -85,5 +85,15 @@ module.exports = (_phase, { defaultConfig }) => {
     }
   })
 
+  finalConfig.redirects = async () => {
+    return [
+      {
+        source: '/about',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  }
+
   return finalConfig
 }
