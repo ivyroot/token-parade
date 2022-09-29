@@ -13,3 +13,7 @@ Dependencies added:
 Fetching NFT info uses the SimpleHash API which requires an account.
 Enter the public access key from the account in .env.local as value `NEXT_PUBLIC_ANALYTICS_ID`
 NB: `NEXT_PUBLIC*` is the required prefix for keys to be included in the public JS app
+
+# zustand
+
+`yarn add zustand`
