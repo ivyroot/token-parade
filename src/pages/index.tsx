@@ -47,7 +47,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Project Title',
+      title: 'Token Parade',
     },
   }
 }

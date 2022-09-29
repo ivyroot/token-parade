@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { NftDisplay } from '@/components/canvas/NftDisplay'
 import { useFrame } from '@react-three/fiber'
 import { UseParadeState, ParadeState  } from '@/hooks/UseParadeState'
-
+import { UseENS } from '@/hooks/UseENS'
 
 import { UseAddressTokens, NftTokenInfo, NftTokenResponse } from '@/hooks/UseAddressTokens'
 
@@ -24,9 +24,11 @@ export const NftGroup = (props) => {
         }
     })
     const paradeOwner = UseParadeState((state) => state.addressValue)
+    // NB: need to turn ENS into address in order to check owner history in SimpleHash response
+    const ensLookup = UseENS(paradeOwner)
+    const paradeOwnerAddress = (ensLookup && ensLookup.address) ? ensLookup.address : null
 
-    // NB: need to turn ENS into address in order to check owner history in response
-    const tokenResults = UseAddressTokens(paradeOwner);
+    const tokenResults = UseAddressTokens(paradeOwnerAddress);
     if (!tokenResults) {
         return null;
     }

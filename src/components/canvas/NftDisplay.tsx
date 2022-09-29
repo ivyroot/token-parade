@@ -21,7 +21,7 @@ export const NftDisplay = (props) => {
     const handleClicked = () => {
         window.open(osUrl, '_blank');
     }
-    const imageUrl: string | null = props.tokenInfo.previewImageMedium;
+    const imageUrl: string = props.tokenInfo.previewImageMedium ? props.tokenInfo.previewImageMedium : '/Basic_square.svg';
     const colorMap = useLoader(TextureLoader, imageUrl);
     if (!imageUrl) {
         return (
