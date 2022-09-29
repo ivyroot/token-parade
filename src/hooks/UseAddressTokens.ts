@@ -97,7 +97,7 @@ export const UseAddressTokens = (address: string | null): NftTokenResponse => {
 
     const tokens = fullNfts.map((token: any) => {
        return parseSimpleHashInfo(token, address);
-    }).sort((a, b) => b.purchaseTimestamp - a.purchaseTimestamp )
+    }).sort((a, b) => a.purchaseTimestamp - b.purchaseTimestamp )
 
     if (!data.next || dataPageTwo) {
         setIsLoading(false)

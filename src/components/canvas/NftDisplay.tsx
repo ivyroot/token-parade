@@ -13,9 +13,7 @@ export const NftDisplay = (props) => {
     const [rotation, setRotation] = useState([0, 0, 0])
     const setFocus = () => {
         setHover(true)
-        if (props.onFocus) {
-            props.onFocus(props.tokenInfo);
-        }
+        props.onFocus(props.tokenInfo);
     }
     const osUrl = `https://opensea.io/assets/${props.tokenInfo.chain}/${props.tokenInfo.contractAddress}/${props.tokenInfo.tokenId}`;
     const handleClicked = () => {

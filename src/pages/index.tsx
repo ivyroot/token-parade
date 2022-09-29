@@ -25,7 +25,7 @@ const Page = (props) => {
   return (
     <>
       <ParadeInfo focusedNft={props.focusedNft} onRestart={props.onRestart} />
-      <AddressInput onRestart={props.onRestart} />
+      <AddressInput onRestart={props.onRestart} setFocusedNft={props.onFocus} />
     </>
   )
 }
