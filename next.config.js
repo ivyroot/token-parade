@@ -69,7 +69,16 @@ module.exports = (_phase, { defaultConfig }) => {
     }
   )
 
-  const finalConfig = {}
+  const finalConfig = {
+    exportPathMap: async function (
+      defaultPathMap,
+      { dev, dir, outDir, distDir, buildId }
+    ) {
+      return {
+        "/": { page: "/" }
+      };
+    }
+  }
   Object.keys(wConfig).forEach((key) => {
     if (!KEYS_TO_OMIT.includes(key)) {
       finalConfig[key] = wConfig[key]
