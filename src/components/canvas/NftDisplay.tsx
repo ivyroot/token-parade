@@ -15,6 +15,12 @@ export const NftDisplay = (props) => {
     if (!active) {
         return null;
     }
+    const setFocus = () => {
+        setHover(true)
+        if (props.onFocus) {
+            props.onFocus(props.tokenInfo);
+        }
+    }
     const imageUrl: string | null = props.tokenInfo.previewImageMedium;
     const colorMap = imageUrl ? useLoader(TextureLoader, imageUrl) : null;
     const color = imageUrl ? null : 'hotpink';
@@ -24,7 +30,7 @@ export const NftDisplay = (props) => {
                 ref={mesh}
                 position={position}
                 rotation={[0, Math.PI / 2, 0]}
-                onPointerOver={() => setHover(true)}
+                onPointerOver={() => setFocus()}
                 onPointerOut={() => setHover(false)}
                 scale={hovered ? 1.1 : 1}
             >

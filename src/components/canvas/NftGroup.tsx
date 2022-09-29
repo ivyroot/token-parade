@@ -34,7 +34,7 @@ export const NftGroup = (props) => {
         const columnOffset = 2.25 + column * 3.5;
         const row = Math.floor(index / 3);
         const rowOffset = row * -4;
-        return <NftDisplay key={tokenInfo.id} tokenInfo={tokenInfo} initialPos={[columnOffset, 0, rowOffset]} />
+        return <NftDisplay key={tokenInfo.id} onFocus={props.onFocus} tokenInfo={tokenInfo} initialPos={[columnOffset, 0, rowOffset]} />
     })
     return (
         <>

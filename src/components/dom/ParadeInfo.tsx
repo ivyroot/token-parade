@@ -1,4 +1,5 @@
 import { UseParadeState  } from '@/hooks/UseParadeState'
+import { TokenInfo } from '@/components/dom/TokenInfo'
 
 export const ParadeInfo = (params) => {
     const address = UseParadeState((state) => state.addressValue)
@@ -14,6 +15,7 @@ export const ParadeInfo = (params) => {
         >
             <div className='mx-8 my-2 text-slate-400'>{description}</div>
             <div className='mx-8 my-2 text-slate-400'>{loadingMsg}</div>
+            <TokenInfo token={params.focusedNft} />
         </div>
     )
 }

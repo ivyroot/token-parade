@@ -6,8 +6,11 @@ import { useState, useEffect } from 'react';
 
 export interface NftTokenInfo {
     id: string;
+    tokenId: string;
     name: string;
     collectionName: string;
+    chain: string,
+    contractAddress: string,
     previewImageMedium: string | null;
     purchaseDate: string;
     purchaseTimestamp: number;
@@ -28,12 +31,21 @@ const parseSimpleHashInfo = (token: any, address: string): NftTokenInfo => {
     const ownerHistory = token.owners.find(t => t.owner_address == address)
     const purchaseDate = ownerHistory ? ownerHistory.first_acquired_date : '2022-09-27T00:00:00.000Z'
     const purchaseTimestamp = Date.parse(purchaseDate)
+    const dateObject = new Date(purchaseTimestamp);
+    const displayDate = dateObject.toLocaleString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    })
     return {
         id: token.nft_id,
+        tokenId: token.token_id,
         name: token.name,
         collectionName: token.collection.name,
+        chain: token.chain,
+        contractAddress: token.contract_address,
         previewImageMedium: token.previews.image_medium_url,
-        purchaseDate: purchaseDate,
+        purchaseDate: displayDate,
         purchaseTimestamp: purchaseTimestamp,
     };
 }
